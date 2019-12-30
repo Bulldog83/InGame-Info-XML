@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.value;
 
-import com.github.lunatrius.core.entity.EntityHelper;
+import com.github.lunatrius.ingameinfo.core.entity.EntityHelper;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoItem;
@@ -9,9 +9,9 @@ import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -121,7 +121,7 @@ public abstract class ValueComplex extends Value {
                 if (this.values.size() == 2) {
                     itemDamage = getIntValue(1);
                 }
-                return String.valueOf(EntityHelper.getItemCountInInventory(Minecraft.getMinecraft().player.inventory, item, itemDamage));
+                return String.valueOf(EntityHelper.getItemCountInInventory(MinecraftClient.getInstance().player.inventory, item, itemDamage));
             } catch (final Exception e2) {
                 return "0";
             }
@@ -142,7 +142,7 @@ public abstract class ValueComplex extends Value {
                 for (int i = 0; i < args.length; i++) {
                     args[i] = getValue(i + 1);
                 }
-                return I18n.format(format, args);
+                return I18n.translate(format, (Object[]) args);
             } catch (final Exception e) {
                 return "?";
             }
